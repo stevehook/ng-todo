@@ -1,6 +1,14 @@
 <% @todos.each do |todo| %>
-  <div class="todo todo-<%= todo.completed? ? 'completed' : 'pending' %>">
-    <span class='glyphicon glyphicon-ok'></span>
+  <div id='todo-<%= todo.id %>' class="todo todo-<%= todo.completed? ? 'completed' : 'pending' %>">
+    <% if !todo.completed? %>
+      <%= form_for todo, url: complete_todo_path(todo) do |f| %>
+        <%= button_tag type: 'submit' do %>
+          <span class='glyphicon glyphicon-ok'></span>
+        <% end %>
+      <% end %>
+    <% else %>
+      <span class='glyphicon glyphicon-ok'></span>
+    <% end %>
     <span class='title'><%= todo.title %></span>
   </div>
 <% end %>

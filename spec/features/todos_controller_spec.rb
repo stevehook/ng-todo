@@ -1,11 +1,9 @@
 require 'spec_helper'
 
 describe '#index' do
-  before do
-    Todo.create! title: 'Thing 1'
-    Todo.create! title: 'Thing 2', completed: true
-    Todo.create! title: 'Thing 3', archived: true, completed: true
-  end
+  let!(:pending_todo) { Todo.create! title: 'Thing 1' }
+  let!(:completed_todo) { Todo.create! title: 'Thing 2', completed: true }
+  let!(:archived_todo) { Todo.create! title: 'Thing 3', archived: true, completed: true }
 
   describe 'listing todos' do
     it 'shows the list of todos' do
@@ -22,7 +20,15 @@ describe '#index' do
     it 'shows a tick mark for the completed todo'
   end
 
-  describe 'finishing a todo' do
+  describe 'clicking the complete icon on a todo' do
+    it 'completes the todo' do
+      visit todos_path
+      within "#todo-#{pending_todo.id}" do
+        click_button ''
+      end
+      expect(pending_todo.reload.completed?).to be_true
+      expect(current_path).to eql(todos_path)
+    end
   end
 
   describe 'adding a todo' do

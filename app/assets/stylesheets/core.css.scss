@@ -6,26 +6,36 @@
   border-color: #4cae4c;
 }
 
-.todo > .title {
+.todo .title {
   margin: 0 0 0 15px;
 }
 
-.todo > .glyphicon {
+.todo .glyphicon {
   margin: 0 0 0 10px;
+}
+
+.todo form {
+  display: inline-block;
+}
+
+.todo button {
+  border: none;
+  background: none;
+  padding: 0;
 }
 
 .todo-completed {
   border-color: #aaa;
 }
 
-.todo-pending > .glyphicon {
+.todo-pending .glyphicon {
   color: #4cae4c;
 }
 
-.todo-completed > span {
+.todo-completed span {
   color: #aaa;
 }
 
-.todo-completed > .title {
+.todo-completed .title {
   text-decoration: line-through;
 }
