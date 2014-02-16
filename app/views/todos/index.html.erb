@@ -1,5 +1,6 @@
 <% @todos.each do |todo| %>
-  <div class='todo'>
+  <div class="todo todo-<%= todo.completed? ? 'completed' : 'pending' %>">
+    <span class='glyphicon glyphicon-ok'></span>
     <span class='title'><%= todo.title %></span>
   </div>
 <% end %>

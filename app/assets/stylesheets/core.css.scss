@@ -5,3 +5,27 @@
   background-color: #f4f8fa;
   border-color: #4cae4c;
 }
+
+.todo > .title {
+  margin: 0 0 0 15px;
+}
+
+.todo > .glyphicon {
+  margin: 0 0 0 10px;
+}
+
+.todo-completed {
+  border-color: #aaa;
+}
+
+.todo-pending > .glyphicon {
+  color: #4cae4c;
+}
+
+.todo-completed > span {
+  color: #aaa;
+}
+
+.todo-completed > .title {
+  text-decoration: line-through;
+}
