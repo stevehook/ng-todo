@@ -12,3 +12,8 @@
     <span class='title'><%= todo.title %></span>
   </div>
 <% end %>
+
+<%= form_for @new_todo do |form| %>
+  <%= form.text_field :title, class: 'form-control' %>
+  <%= form.submit 'Add', class: 'btn btn-default' %>
+<% end %>

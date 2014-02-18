@@ -1,5 +1,5 @@
 NgTodo::Application.routes.draw do
-  resources :todos, only: [:index] do
+  resources :todos, only: [:index, :create] do
     member do
       patch 'complete'
     end

@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe '#index' do
-  let!(:pending_todo) { Todo.create! title: 'Thing 1' }
-  let!(:completed_todo) { Todo.create! title: 'Thing 2', completed: true }
-  let!(:archived_todo) { Todo.create! title: 'Thing 3', archived: true, completed: true }
-
   describe 'listing todos' do
+    let!(:pending_todo) { Todo.create! title: 'Thing 1' }
+    let!(:completed_todo) { Todo.create! title: 'Thing 2', completed: true }
+    let!(:archived_todo) { Todo.create! title: 'Thing 3', archived: true, completed: true }
+
     it 'shows the list of todos' do
       visit todos_path
       expect(page).to have_content 'Thing 1'
@@ -17,10 +17,13 @@ describe '#index' do
       expect(page).to_not have_content 'Thing 3'
     end
 
-    it 'shows a tick mark for the completed todo'
+    it 'shows a tick mark for the completed todo' do
+    end
   end
 
   describe 'clicking the complete icon on a todo' do
+    let!(:pending_todo) { Todo.create! title: 'Thing 1' }
+
     it 'completes the todo' do
       visit todos_path
       within "#todo-#{pending_todo.id}" do
@@ -32,6 +35,13 @@ describe '#index' do
   end
 
   describe 'adding a todo' do
+    it 'creates a new pending todo' do
+      visit todos_path
+      fill_in :todo_title, with: 'Another thing'
+      click_button 'Add'
+      todo = Todo.last
+      todo.title.should == 'Another thing'
+    end
   end
 
   describe 'archiving todos' do
