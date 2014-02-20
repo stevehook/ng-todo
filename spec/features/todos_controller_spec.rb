@@ -27,7 +27,7 @@ describe '#index' do
     it 'completes the todo' do
       visit todos_path
       within "#todo-#{pending_todo.id}" do
-        click_button ''
+        find('.button-complete').click
       end
       expect(pending_todo.reload.completed?).to be_true
       expect(current_path).to eql(todos_path)
@@ -41,6 +41,18 @@ describe '#index' do
       click_button 'Add'
       todo = Todo.last
       todo.title.should == 'Another thing'
+    end
+  end
+
+  describe 'deleting a todo' do
+    let!(:pending_todo) { Todo.create! title: 'Thing 1' }
+
+    it 'creates a new pending todo' do
+      visit todos_path
+      within "#todo-#{pending_todo.id}" do
+        find('.button-destroy').click
+      end
+      Todo.where(id: pending_todo.id).first.should be_nil
     end
   end
 

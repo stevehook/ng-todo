@@ -28,8 +28,20 @@
   border-color: #aaa;
 }
 
-.todo-pending .glyphicon {
+.todo-pending .glyphicon:hover {
   color: #4cae4c;
+}
+
+.todo-pending .glyphicon {
+  color: #055305;
+}
+
+.todo-pending .glyphicon-remove:hover {
+  color: #CA0803;
+}
+
+.todo-pending .glyphicon-remove {
+  color: #8b0804;
 }
 
 .todo-completed span {
