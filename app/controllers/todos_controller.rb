@@ -1,27 +1,41 @@
 class TodosController < ApplicationController
   def index
     @todos = Todo.unarchived
-    @new_todo = Todo.new
+    respond_to do |format|
+      format.html { @new_todo = Todo.new }
+      format.json { render json: @todos }
+    end
   end
 
   def create
     @new_todo = Todo.new(todo_params)
     if @new_todo.save
-      redirect_to action: :index
+      respond_to do |format|
+        format.html { redirect_to action: :index }
+        format.json { render json: @new_todo }
+      end
     else
-      @todos = Todo.unarchived
-      render :index
+      respond_to do |format|
+        format.html { redirect_to action: :index }
+        format.json { render json: @new_todo }
+      end
     end
   end
 
   def complete
     @todo = Todo.find(params[:id]).complete!
-    redirect_to action: :index
+    respond_to do |format|
+      format.html { redirect_to action: :index }
+      format.json { render json: @todo }
+    end
   end
 
   def destroy
     Todo.find(params[:id]).destroy
-    redirect_to action: :index
+    respond_to do |format|
+      format.html { redirect_to action: :index }
+      format.json { render json: @todo }
+    end
   end
 
   private
