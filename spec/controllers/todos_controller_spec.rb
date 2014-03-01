@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe TodosController do
   describe '#index' do
-    context 'with nothing todo' do
+    context 'with nothing to do' do
       it 'returns an empty list of todos' do
         xhr :get, :index, format: :json
         response.body.should == '[]'
@@ -14,9 +14,29 @@ describe TodosController do
       let!(:completed_todo) { Todo.create! title: 'Thing 2', completed: true }
       let!(:archived_todo) { Todo.create! title: 'Thing 3', archived: true, completed: true }
 
-      it 'returns a list of todos the unarchived todos' do
+      it 'returns a list of the unarchived todos' do
         xhr :get, :index, format: :json
         response.body.should == [pending_todo, completed_todo].to_json
+      end
+    end
+  end
+
+  describe '#archived' do
+    context 'with nothing to do' do
+      it 'returns an empty list of todos' do
+        xhr :get, :archived, format: :json
+        response.body.should == '[]'
+      end
+    end
+
+    context 'with three todos, including one archived' do
+      let!(:pending_todo) { Todo.create! title: 'Thing 1' }
+      let!(:completed_todo) { Todo.create! title: 'Thing 2', completed: true }
+      let!(:archived_todo) { Todo.create! title: 'Thing 3', archived: true, completed: true }
+
+      it 'returns a list of archived todos' do
+        xhr :get, :archived, format: :json
+        response.body.should == [archived_todo].to_json
       end
     end
   end
@@ -83,9 +103,9 @@ describe TodosController do
   describe '#destroy' do
     let!(:pending_todo) { Todo.create! title: 'Thing 1' }
 
-    it 'deletes the given todo' do
+    it 'archives the given todo' do
       xhr :delete, :destroy, id: pending_todo.id, format: :json
-      Todo.where(id: pending_todo.id).count.should == 0
+      Todo.where(id: pending_todo.id).first.archived?.should == true
       response.code.should == '200'
     end
 

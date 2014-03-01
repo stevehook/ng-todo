@@ -16,8 +16,28 @@ describe '#index' do
       visit todos_path
       expect(page).to_not have_content 'Thing 3'
     end
+  end
 
-    it 'shows a tick mark for the completed todo' do
+  describe 'listing archived todos' do
+    let!(:pending_todo) { Todo.create! title: 'Thing 1' }
+    let!(:completed_todo) { Todo.create! title: 'Thing 2', completed: true }
+    let!(:archived_todo) { Todo.create! title: 'Thing 3', archived: true, completed: true }
+
+    it 'clicking the archive link opens the archived todo page' do
+      visit todos_path
+      click_link 'Archive'
+      current_path.should == archived_todos_path
+    end
+
+    it 'shows the list of archived todos' do
+      visit archived_todos_path
+      expect(page).to have_content 'Thing 3'
+    end
+
+    it 'does not show unarchived todos' do
+      visit archived_todos_path
+      expect(page).to_not have_content 'Thing 1'
+      expect(page).to_not have_content 'Thing 2'
     end
   end
 
@@ -72,18 +92,15 @@ describe '#index' do
     end
   end
 
-  describe 'deleting a todo' do
+  describe 'archiving a todo' do
     let!(:pending_todo) { Todo.create! title: 'Thing 1' }
 
-    it 'creates a new pending todo' do
+    it 'archives a new pending todo' do
       visit todos_path
       within "#todo-#{pending_todo.id}" do
         find('.button-destroy').click
       end
-      Todo.where(id: pending_todo.id).first.should be_nil
+      Todo.where(id: pending_todo.id).first.archived?.should == true
     end
-  end
-
-  describe 'archiving todos' do
   end
 end

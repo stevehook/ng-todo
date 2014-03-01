@@ -7,6 +7,14 @@ class TodosController < ApplicationController
     end
   end
 
+  def archived
+    @todos = Todo.archived
+    respond_to do |format|
+      format.html { }
+      format.json { render json: @todos }
+    end
+  end
+
   def create
     @new_todo = Todo.new(todo_params)
     if @new_todo.save
@@ -31,7 +39,7 @@ class TodosController < ApplicationController
   end
 
   def destroy
-    Todo.find(params[:id]).destroy
+    Todo.find(params[:id]).archive!
     respond_to do |format|
       format.html { redirect_to action: :index }
       format.json { render json: @todo }
@@ -41,7 +49,7 @@ class TodosController < ApplicationController
   def edit
     @todo = Todo.find(params[:id])
     respond_to do |format|
-      format.html { render :edit }
+      format.html { }
       format.json { render json: @todo }
     end
   end
