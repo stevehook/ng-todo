@@ -34,6 +34,34 @@ describe '#index' do
     end
   end
 
+  describe 'editing a todo' do
+    let!(:pending_todo) { Todo.create! title: 'Thing 1' }
+
+    it 'clicking the edit link on a pending todo opens the edit form' do
+      visit todos_path
+      within "#todo-#{pending_todo.id}" do
+        find('.link-edit').click
+      end
+      current_path.should == edit_todo_path(pending_todo)
+    end
+
+    it 'updating a todo changes the title and redirects to the todo list' do
+      visit edit_todo_path(pending_todo)
+      fill_in :todo_title, with: 'A different thing'
+      click_button 'Update'
+      pending_todo.reload.title.should == 'A different thing'
+      current_path.should == todos_path
+    end
+
+    it 'clicking the cancel button does not change the title it just redirects to the todo list' do
+      visit edit_todo_path(pending_todo)
+      fill_in :todo_title, with: 'A different thing'
+      click_link 'Cancel'
+      pending_todo.reload.title.should == 'Thing 1'
+      current_path.should == todos_path
+    end
+  end
+
   describe 'adding a todo' do
     it 'creates a new pending todo' do
       visit todos_path

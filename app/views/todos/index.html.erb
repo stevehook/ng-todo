@@ -1,9 +1,14 @@
+<h3>My Todos</h3>
+
 <% @todos.each do |todo| %>
   <div id='todo-<%= todo.id %>' class="todo todo-<%= todo.completed? ? 'completed' : 'pending' %>">
     <%= form_for todo, url: todo_path(todo), method: :delete do |f| %>
       <%= button_tag type: 'submit', class: 'button-destroy' do %>
         <span class='glyphicon glyphicon-remove'></span>
       <% end %>
+    <% end %>
+    <%= link_to edit_todo_path(todo), class: 'link-edit' do %>
+      <span class='glyphicon glyphicon-pencil'></span>
     <% end %>
     <% if !todo.completed? %>
       <%= form_for todo, url: complete_todo_path(todo) do |f| %>

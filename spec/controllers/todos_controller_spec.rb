@@ -31,6 +31,38 @@ describe TodosController do
     pending 'with a missing title'
   end
 
+  describe '#edit' do
+    let!(:pending_todo) { Todo.create! title: 'Thing 1' }
+
+    it 'returns the existing object' do
+      xhr :get, :edit, id: pending_todo.id, format: :json
+      response.code.should == '200'
+      response.body.should == pending_todo.to_json
+    end
+
+    it 'raises error for a missing todo' do
+      expect { xhr :get, :edit, id: (pending_todo.id + 1), format: :json}.to raise_error
+    end
+  end
+
+  describe '#update' do
+    let!(:pending_todo) { Todo.create! title: 'Thing 1' }
+
+    it 'returns the existing object' do
+      xhr :patch, :update, id: pending_todo.id, todo: { title: 'A different thing' }, format: :json
+      response.code.should == '200'
+      response.body.should == pending_todo.clone.reload.to_json
+      pending_todo.reload.title.should == 'A different thing'
+    end
+
+    it 'raises error for a missing todo' do
+      expect {
+        xhr :patch, :update, id: (pending_todo.id + 1), todo: { title: 'A different thing' }, format: :json
+      }.to raise_error
+      pending_todo.reload.title.should == 'Thing 1'
+    end
+  end
+
   describe '#complete' do
     let!(:pending_todo) { Todo.create! title: 'Thing 1' }
 

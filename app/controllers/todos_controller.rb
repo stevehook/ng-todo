@@ -38,6 +38,23 @@ class TodosController < ApplicationController
     end
   end
 
+  def edit
+    @todo = Todo.find(params[:id])
+    respond_to do |format|
+      format.html { render :edit }
+      format.json { render json: @todo }
+    end
+  end
+
+  def update
+    @todo = Todo.find(params[:id])
+    @todo.update_attributes(todo_params)
+    respond_to do |format|
+      format.html { redirect_to action: :index }
+      format.json { render json: @todo }
+    end
+  end
+
   private
 
   def todo_params
