@@ -1,9 +1,8 @@
 .todo {
   margin: 10px 0;
   padding: 15px;
-  border-left: 3px solid #eee;
+  border-left: 3px solid #666;
   background-color: #f4f8fa;
-  border-color: #4cae4c;
 }
 
 .todo .title {
@@ -14,7 +13,12 @@
   margin: 0 0 0 10px;
 }
 
+.todo > .glyphicon {
+  float: right;
+}
+
 .todo form {
+  float: right;
   display: inline-block;
 }
 
@@ -28,23 +32,15 @@
   border-color: #aaa;
 }
 
-.todo-pending .glyphicon:hover {
-  color: #4cae4c;
+.todo .glyphicon {
+  color: #888;
 }
 
-.todo-pending .glyphicon {
-  color: #055305;
+.todo .glyphicon:hover {
+  color: #000;
 }
 
-.todo-pending .glyphicon-remove:hover {
-  color: #CA0803;
-}
-
-.todo-pending .glyphicon-remove {
-  color: #8b0804;
-}
-
-.todo-completed span {
+.todo-completed > span {
   color: #aaa;
 }
 
