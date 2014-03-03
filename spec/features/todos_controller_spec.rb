@@ -86,7 +86,9 @@ describe '#index' do
     it 'creates a new pending todo' do
       visit todos_path
       fill_in :todo_title, with: 'Another thing'
-      click_button 'Add'
+      within "#todo-new" do
+        find("button[type='submit']").click
+      end
       todo = Todo.last
       todo.title.should == 'Another thing'
     end

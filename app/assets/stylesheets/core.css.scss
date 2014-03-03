@@ -2,7 +2,8 @@
   margin: 10px 0;
   padding: 15px;
   border-left: 3px solid #666;
-  background-color: #f4f8fa;
+  background-color: #fff;
+  clear: both;
 }
 
 .todo .title {
@@ -17,9 +18,27 @@
   float: right;
 }
 
-.todo > form, .todo > a {
+.todo > form.action, .todo > a {
   float: right;
   display: inline-block;
+}
+
+.todo-new {
+  padding: 10px 15px;
+
+  .button-add {
+    margin: 7px 0;
+  }
+}
+
+.todo > form.new-todo {
+  input {
+    border: none;
+  }
+
+  .button-add {
+    float: right;
+  }
 }
 
 .todo button {
@@ -49,6 +68,11 @@
 }
 
 #todo_title {
-  width: 75%;
+  width: 65%;
+  display: inline-block;
+}
+
+#todo_complete_by {
+  width: 25%;
   display: inline-block;
 }

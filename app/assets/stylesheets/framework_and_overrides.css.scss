@@ -4,6 +4,11 @@ $font-size-base: 20px;
 // import the CSS framework
 @import "bootstrap";
 
+body {
+  min-height: 100%;
+  background-color: #eee;
+}
+
 // make all images responsive by default
 img {
   @extend .img-responsive;
