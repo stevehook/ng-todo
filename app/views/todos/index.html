@@ -1,0 +1,16 @@
+<h3>My Tasks</h3>
+
+<div id='todo-list' ng-controller='TodoListCtrl'>
+  <div id='todo-new' class="todo todo-new">
+    <form ng-submit='saveTodo()'>
+      <input type='text' class='form-control' placeholder='What needs to be done?' autofocus ng-model='newTodo.title'/>
+    </form>
+  </div>
+
+  <div id='todo-{{todo.id}}' class='todo {{classForTodo(todo)}}' ng-repeat='todo in todos'>
+    <span class='title'>{{todo.title}}</span>
+    <span class='glyphicon glyphicon-remove' ng-click='deleteTodo(todo)'></span>
+    <span class='glyphicon glyphicon-ok' ng-click='completeTodo(todo)' ng-if='!todo.completed'></span>
+  </div>
+</div>
+
