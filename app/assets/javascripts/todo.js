@@ -4,6 +4,7 @@ var todoApp = angular.module('todo', []).
 todoApp.controller('TodoListCtrl', function($scope, $http) {
   $scope.newTodo = { title: '', completeBy: Date.now() };
   $scope.todos = [];
+  $scope.editingTodo = false;
 
   $http.get('/todos').success(function(data) {
     $scope.todos = data;
@@ -28,6 +29,19 @@ todoApp.controller('TodoListCtrl', function($scope, $http) {
       success(function() {
         $scope.todos.splice($scope.todos.indexOf(todo), 1);
       });
+  };
+
+  $scope.updateTodo = function(event) {
+    if (event.type == 'blur' || event.keyCode == 13) {
+      $http.post('/todos/' + $scope.editingTodo.id, $scope.editingTodo, { headers: { 'X-Http-Method-Override': 'PATCH' } }).
+        success(function() {
+          $scope.editingTodo = false;
+        });
+    }
+  };
+
+  $scope.editTodo = function(todo) {
+    $scope.editingTodo = todo;
   };
 
   $scope.classForTodo = function(todo) {
