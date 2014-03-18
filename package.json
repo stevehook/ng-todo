@@ -1,0 +1,26 @@
+{
+  "name": "ng-todo",
+  "version": "0.0.0",
+  "description": "Rails starter application to convert to a single-page application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stevehook/ng-todo.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/stevehook/ng-todo/issues"
+  },
+  "dependencies": {
+    "karma": "~0.12.0",
+    "karma-jasmine": "~0.2.2",
+    "phantomjs": "~1.9.7-1"
+  },
+  "devDependencies": {
+    "karma-phantomjs-launcher": "~0.1.2"
+  }
+}
