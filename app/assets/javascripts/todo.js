@@ -1,3 +1,5 @@
+'use strict'
+
 var todoApp = angular.module('todo', []).
   run(function($http) { $http.defaults.headers.common.Accept = 'application/json'; });
 
@@ -21,6 +23,9 @@ todoApp.controller('TodoListCtrl', function($scope, $http) {
     $http.post('/todos/' + todo.id + '/complete', todo, { headers: { 'X-Http-Method-Override': 'PATCH' } }).
       success(function() {
         todo.completed = true;
+      }).
+      error(function() {
+        console.log('failed');
       });
   };
 
