@@ -7,31 +7,19 @@ describe('TodoListCtrl', function() {
       "id": 23,
       "title": "Go for a walk",
       "completed": false,
-      "archived": false,
-      "order": 0,
-      "created_at": "2014-03-01T21:03:08.825Z",
-      "updated_at": "2014-03-16T15:29:00.901Z",
-      "complete_by": null
+      "archived": false
     },
     {
       "id": 24,
       "title": "Make lunch",
       "completed": false,
-      "archived": false,
-      "order": 0,
-      "created_at": "2014-03-01T21:03:08.825Z",
-      "updated_at": "2014-03-16T15:29:00.901Z",
-      "complete_by": null
+      "archived": false
     },
     {
       "id": 25,
       "title": "Write letter",
       "completed": false,
-      "archived": false,
-      "order": 0,
-      "created_at": "2014-03-01T21:03:08.825Z",
-      "updated_at": "2014-03-16T15:29:00.901Z",
-      "complete_by": null
+      "archived": false
     }
   ];
 
@@ -56,11 +44,7 @@ describe('TodoListCtrl', function() {
       "id": 26,
       "title": "Have a bath",
       "completed": false,
-      "archived": false,
-      "order": 0,
-      "created_at": "2014-03-01T21:03:08.825Z",
-      "updated_at": "2014-03-16T15:29:00.901Z",
-      "complete_by": null
+      "archived": false
     };
 
     beforeEach(function() {
@@ -86,6 +70,66 @@ describe('TodoListCtrl', function() {
       $httpBackend.flush()
       expect(scope.todos.length).toEqual(3);
       expect(scope.todos[1].completed).toEqual(true);
+    });
+  });
+
+  describe('deleteTodo', function() {
+    beforeEach(function() {
+      $httpBackend.when('DELETE', '/todos/' + scope.todos[1].id).respond(200, {});
+    });
+
+    it('archives the todo', function() {
+      scope.deleteTodo(scope.todos[1]);
+      $httpBackend.flush()
+      expect(scope.todos.length).toEqual(2);
+    });
+  });
+
+  describe('updateTodo', function() {
+    beforeEach(function() {
+      $httpBackend.when('POST', '/todos/' + scope.todos[1].id, {
+        "id": 24,
+        "title": "Make tasty lunch",
+        "completed": false,
+        "archived": false
+      }).respond(200, {});
+      scope.editingTodo = scope.todos[1];
+      scope.editingTodo.title = 'Make tasty lunch';
+    });
+
+    it('updates the todo on blur event', function() {
+      scope.updateTodo({ type: 'blur' });
+      $httpBackend.flush()
+      expect(scope.todos.length).toEqual(3);
+    });
+
+    it('updates the todo on return key', function() {
+      scope.updateTodo({ keyCode: 13 });
+      $httpBackend.flush()
+      expect(scope.todos.length).toEqual(3);
+    });
+
+    it('does not update the todo on other events', function() {
+      scope.updateTodo({});
+      expect(scope.todos.length).toEqual(3);
+    });
+  });
+
+  describe('editTodo', function() {
+    it('sets the todo up for editing', function() {
+      scope.editTodo(scope.todos[1]);
+      expect(scope.editingTodo).toEqual(scope.todos[1]);
+      expect(scope.todos.length).toEqual(3);
+    });
+  });
+
+  describe('classForTodo', function() {
+    it('returns the right class for a pending todo', function() {
+      expect(scope.classForTodo({ id: 1, title: 'Read a book', completed: false })).toEqual('todo-pending');
+    });
+
+    it('returns the right class for a completed todo', function() {
+      expect(scope.classForTodo({ id: 1, title: 'Read a book', completed: true })).toEqual('todo-completed');
     });
   });
 });
