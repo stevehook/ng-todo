@@ -1,7 +1,29 @@
 'use strict'
 
-var todoApp = angular.module('todo', []).
-  run(function($http) { $http.defaults.headers.common.Accept = 'application/json'; });
+var todoApp = angular.module('todo', ['ngRoute'])
+  .run(function($http) { $http.defaults.headers.common.Accept = 'application/json'; })
+  .config(function($routeProvider) {
+    $routeProvider
+      .when('/todos', {
+        controller: 'TodoListCtrl',
+        templateUrl: 'todos/index.html'
+      })
+      .when('/todos/archive', {
+        controller:'TodoArchiveCtrl',
+        templateUrl:'todos/archive.html'
+      })
+      .otherwise({
+        redirectTo:'/todos'
+      });
+  });
+
+todoApp.controller('TodoArchiveCtrl', function($scope, $http) {
+  $scope.todos = [];
+
+  $http.get('/todos/archived').success(function(data) {
+    $scope.todos = data;
+  });
+});
 
 todoApp.controller('TodoListCtrl', function($scope, $http) {
   $scope.newTodo = { title: '', completeBy: Date.now() };

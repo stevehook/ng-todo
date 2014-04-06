@@ -1,0 +1,8 @@
+<h3>Archived Tasks</h3>
+
+<div id='todo-list' ng-controller='TodoArchiveCtrl'>
+  <div id='todo-{{todo.id}}' class='todo {{classForTodo(todo)}}' ng-repeat='todo in todos'>
+    <span class='title'>{{todo.title}}</span>
+  </div>
+</div>
+

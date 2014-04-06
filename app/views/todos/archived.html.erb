@@ -1,7 +1,0 @@
-<h3>Archived Tasks</h3>
-
-<% @todos.each do |todo| %>
-  <div id='todo-<%= todo.id %>' class="todo todo-<%= todo.completed? ? 'completed' : 'pending' %>">
-    <span class='title'><%= todo.title %></span>
-  </div>
-<% end %>

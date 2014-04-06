@@ -1,6 +1,0 @@
-<h3>Edit Task</h3>
-<%= form_for @todo do |form| %>
-  <%= form.text_field :title, class: 'form-control', autofocus: true %>
-  <%= form.submit 'Update', class: 'btn btn-default' %>
-  <%= link_to 'Cancel', todos_path, class: 'btn btn-default' %>
-<% end %>

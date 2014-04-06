@@ -1,5 +1,5 @@
 GEM
-  remote: https://rails-assets.org/
+  remote: https://rubygems.org/
   specs:
     actionmailer (4.0.2)
       actionpack (= 4.0.2)
@@ -26,6 +26,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
+    angularjs-rails (1.2.15)
     arel (4.0.2)
     atomic (1.1.14)
     better_errors (1.1.0)
@@ -209,6 +210,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  angularjs-rails
   better_errors
   binding_of_caller
   bootstrap-sass (>= 3.0.0.0)
@@ -225,7 +227,6 @@ DEPENDENCIES
   pg
   quiet_assets
   rails (= 4.0.2)
-  rails-assets-angular
   rails-assets-angular-mocks
   rails_layout
   rb-fchange
