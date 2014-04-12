@@ -1,16 +1,16 @@
 'use strict'
 
-var todoApp = angular.module('todo', ['ngRoute'])
+var todoApp = angular.module('todo', ['ngRoute', 'templates'])
   .run(function($http) { $http.defaults.headers.common.Accept = 'application/json'; })
   .config(function($routeProvider) {
     $routeProvider
       .when('/todos', {
         controller: 'TodoListCtrl',
-        templateUrl: 'todos/index.html'
+        templateUrl: 'index.html'
       })
       .when('/todos/archive', {
         controller:'TodoArchiveCtrl',
-        templateUrl:'todos/archive.html'
+        templateUrl:'archive.html'
       })
       .otherwise({
         redirectTo:'/todos'

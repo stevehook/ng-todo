@@ -15,4 +15,5 @@
 //= require bootstrap
 //= require angular
 //= require angular-route
-//= require_tree .
+//= require_tree ./templates
+//= require todo
