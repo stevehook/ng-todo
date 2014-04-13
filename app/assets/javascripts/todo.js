@@ -35,7 +35,8 @@ todoApp.controller('TodoListCtrl', function($scope, $http) {
   });
 
   $scope.saveTodo = function() {
-    $http.post('/todos', $scope.newTodo).success(function() {
+    $http.post('/todos', $scope.newTodo).success(function(data) {
+      $scope.newTodo = data;
       $scope.todos.push($scope.newTodo);
       $scope.newTodo = { completeBy: Date.today };
     });

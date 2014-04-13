@@ -66,7 +66,7 @@ module.exports = function(config) {
     singleRun: false,
 
     ngHtml2JsPreprocessor: {
-      // we want all templates to be loaded in teh same module called 'templates'
+      // we want all templates to be loaded in the same module called 'templates'
       moduleName: 'templates'
     }
   });

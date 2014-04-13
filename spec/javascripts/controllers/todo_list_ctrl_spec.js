@@ -41,6 +41,12 @@ describe('TodoListCtrl', function() {
 
   describe('saveTodo', function() {
     var newTodo = {
+      "title": "Have a bath",
+      "completed": false,
+      "archived": false
+    };
+
+    var savedTodo = {
       "id": 26,
       "title": "Have a bath",
       "completed": false,
@@ -48,7 +54,7 @@ describe('TodoListCtrl', function() {
     };
 
     beforeEach(function() {
-      $httpBackend.when('POST', '/todos').respond(200, newTodo);
+      $httpBackend.when('POST', '/todos').respond(200, savedTodo);
     });
 
     it('saves a new todo', function() {
@@ -57,6 +63,7 @@ describe('TodoListCtrl', function() {
       $httpBackend.flush()
       expect(scope.todos.length).toEqual(4);
       expect(scope.todos[3].title).toEqual('Have a bath');
+      expect(scope.todos[3].id).toEqual(26);
     });
   });
 
